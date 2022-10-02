@@ -6,15 +6,16 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Constructor</title>
 		<link rel="stylesheet" href="style.css" />
-		<script src="app.js" defer></script>
+		<script defer src="app.js"></script>
 	</head>
 	<body>
-		<button id="btnAddBook">Add a book</button>
+		<!--below is actual html-->
+		<button data-modal-target="#modalAddBook">Add a book</button>
 		<div id="listOfBooks"></div>
-		<div id="modalAddBook">
+		<div class="modal" id="modalAddBook">
 			<div id="modalTitle">
-				<div>We need to know a few things about the book</div>
-				<div id="btnModalClose">&times;</div>
+				<div>Book information</div>
+				<button data-close-button class="close-button">&times;</button>
 			</div>
 			<div id="modalForm">
 				<form id="formAddBook">
@@ -36,7 +37,6 @@
 							<input type="checkbox" id="read" name="read" />
 						</li>
 					</ul>
-
 					<button id="btnAddBookToLibrary">Add book to library</button>
 				</form>
 			</div>
