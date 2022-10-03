@@ -1,10 +1,12 @@
 const GameOfThrones = new book('Game of Thrones', 'George R. R. Martin', 6969, false)
 const It = new book('It', 'Stephen King', 420, false)
 const Bible = new book('The Bible', 'Grandma', 555, false)
-
+const listOfBooks = document.querySelector('#listOfBooks');
 const btnAddBook = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
+const btnAddBookToLibrary = document.querySelector('btnAddBookToLibrary')
+let myLibrary = [GameOfThrones, It, Bible];
 
 btnAddBook.forEach(button => {
     button.addEventListener('click', () => {
@@ -39,19 +41,15 @@ btnAddBook.forEach(button => {
     overlay.classList.remove('active')
   }
 
-
-
-
-let myLibrary = [GameOfThrones, It, Bible];
-
-
-
   function showBooks() {
-      for (let i = 0; i < myLibrary.length; i++) {
-      console.table(myLibrary[i])
-      }
+    myLibrary.forEach(book => {
+        console.table(book);
+        const card = document.createElement('div');
+        card.classList.add('book');
+        listOfBooks.appendChild(card);
+    });
   }
-  //let 'showBooks' create a table/card on the page when executed
+  //add styling to 'card' div so it shows up
   
   function book(title, auther, pages, read) {
       this.title = title
@@ -72,7 +70,5 @@ let myLibrary = [GameOfThrones, It, Bible];
     //make a popup form that asks for title, auther, pages, read
     //make the input data into a 'book' class through the book function
     //add class to 'myLibrary' as an array item
-  
-  
   
   console.log('works')
