@@ -1,12 +1,16 @@
 const GameOfThrones = new book('Game of Thrones', 'George R. R. Martin', 6969, false)
-const It = new book('It', 'Stephen King', 420, false)
-const Bible = new book('The Bible', 'Grandma', 555, false)
+const It = new book('It', 'Stephen King', 420, true)
+const Bible = new book('The Bible', 'Grandma', 555, true)
 const listOfBooks = document.querySelector('#listOfBooks');
 const btnAddBook = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
-const btnAddBookToLibrary = document.querySelector('btnAddBookToLibrary')
+const btnAddBookToLibrary = document.querySelector('#btnAddBookToLibrary')
 let myLibrary = [GameOfThrones, It, Bible];
+
+btnAddBookToLibrary.addEventListener('click', addBookToLibrary);
+    //make the input data into a 'book' class through the book function
+    //add class to 'myLibrary' as an array item
 
 btnAddBook.forEach(button => {
     button.addEventListener('click', () => {
@@ -45,11 +49,24 @@ btnAddBook.forEach(button => {
     myLibrary.forEach(book => {
         console.table(book);
         const card = document.createElement('div');
+        const cardList = document.createElement('ul');
+        const title = document.createElement('li');
+        const auther = document.createElement('li');
+        const pages = document.createElement('li');
+        const read = document.createElement('li');
         card.classList.add('book');
-        listOfBooks.appendChild(card);
+        listOfBooks.append(card);
+        card.append(cardList);
+        cardList.append(title);
+        cardList.append(auther);
+        cardList.append(pages);
+        cardList.append(read);
+        title.innerText=`${book.title}`;
+        auther.innerText=`${book.auther}`;
+        pages.innerText=`${book.pages}`;
+        read.innerText=`${book.read == true ? "Read" : "Not read"}`
     });
-  }
-  //add styling to 'card' div so it shows up
+}
   
   function book(title, auther, pages, read) {
       this.title = title
@@ -62,13 +79,12 @@ btnAddBook.forEach(button => {
       return `${this.title} by ${this.auther}, ${this.pages} not read yet`
   }
   
-  function addBookToLibrary() {
   
+
+    function addBookToLibrary() {
+
+        showBooks();
+        console.log("book added")
     }
-  
-    btnAddBookToLibrary.addEventListener('click', addBookToLibrary)
-    //make a popup form that asks for title, auther, pages, read
-    //make the input data into a 'book' class through the book function
-    //add class to 'myLibrary' as an array item
-  
+
   console.log('works')
