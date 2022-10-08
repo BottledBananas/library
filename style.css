@@ -6,6 +6,16 @@ li {
     list-style-type: none;
 }
 
+.book {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 250px;
+    height: 250px;
+    background-color: aliceblue;
+}
+
 #modalAddBook {
     font-size: 2rem;
     position: fixed;
