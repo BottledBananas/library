@@ -19,21 +19,21 @@ btnAddBook.forEach(button => {
     })
   })
   
-  overlay.addEventListener('click', () => {
+overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal.active')
     modals.forEach(modal => {
       closeModal(modal)
     })
   })
   
-  closeModalButtons.forEach(button => {
+closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
       const modal = button.closest('.modal')
       closeModal(modal)
     })
   })
   
-  function openModal(modal) {
+function openModal(modal) {
     if (modal == null) return
     modal.classList.add('active')
     overlay.classList.add('active')
@@ -76,15 +76,31 @@ btnAddBook.forEach(button => {
   }
   
   book.prototype.info = function () {
-      return `${this.title} by ${this.auther}, ${this.pages} not read yet`
+      return `${input.title} by ${this.auther}, ${this.pages}, ${this.read}`
   }
-  
-  
 
     function addBookToLibrary() {
-
-        showBooks();
+        event.preventDefault();
+        const title = document.querySelector("#title");
+        const auther = document.querySelector("#auther");
+        const pages = document.querySelector("#pages");
+        const readYes = document.querySelector("#readYes");
+        const readNo = document.querySelector("#readNo");
+        const modals = document.querySelectorAll('.modal.active')
+        console.log(title.value)
+        console.log(auther.value)
+        console.log(pages.value)
+        if (readYes.checked == true) {
+            console.log("book is read")
+        }
+        if (readNo.checked == true) {
+            console.log("book is unread")
+        }
+        if (readYes == false && readNo == false) {console.log("no value given")}
         console.log("book added")
+        modals.forEach(modal => {
+            closeModal(modal)
+          })
     }
 
   console.log('works')
