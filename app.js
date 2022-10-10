@@ -6,34 +6,78 @@ const btnAddBook = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
 const btnAddBookToLibrary = document.querySelector('#btnAddBookToLibrary')
-let myLibrary = [GameOfThrones, It, Bible];
+const card = document.createElement('div');
+const cardList = document.createElement('ul');
+const liTitle = document.createElement('li');
+const liAuther = document.createElement('li');
+const liPages = document.createElement('li');
+const liRead = document.createElement('li');
+let myLibrary = [GameOfThrones, It, Bible, It];
 
 btnAddBookToLibrary.addEventListener('click', addBookToLibrary);
-    //make the input data into a 'book' class through the book function
-    //add class to 'myLibrary' as an array item
 
-btnAddBook.forEach(button => {
+function showBooks() {
+  myLibrary.forEach(book => {
+    console.table(book);
+    const card = document.createElement('div');
+    const cardList = document.createElement('ul');
+    const liTitle = document.createElement('li');
+    const liAuther = document.createElement('li');
+    const liPages = document.createElement('li');
+    const liRead = document.createElement('li');
+    card.classList.add('book');
+    listOfBooks.append(card);
+    card.append(cardList);        
+    cardList.append(liTitle);
+    cardList.append(liAuther);
+    cardList.append(liPages);
+    cardList.append(liRead);
+    liTitle.innerText=`${book.title}`;
+    liAuther.innerText=`${book.auther}`;
+    liPages.innerText=`${book.pages}`;
+    liRead.innerText=`${book.read == true ? "Read" : "Not read"}`;
+  })
+}
+
+const bookConstructor = function() {
+  const card = document.createElement('div');
+const cardList = document.createElement('ul');
+const liTitle = document.createElement('li');
+const liAuther = document.createElement('li');
+const liPages = document.createElement('li');
+const liRead = document.createElement('li');
+  card.classList.add('book');
+  listOfBooks.append(card);
+  card.append(cardList);        
+  cardList.append(liTitle);
+  cardList.append(liAuther);
+  cardList.append(liPages);
+  cardList.append(liRead);
+  console.log("book added")
+}
+
+    btnAddBook.forEach(button => {
     button.addEventListener('click', () => {
       const modal = document.querySelector(button.dataset.modalTarget)
       openModal(modal)
     })
   })
   
-overlay.addEventListener('click', () => {
+  overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal.active')
     modals.forEach(modal => {
       closeModal(modal)
     })
   })
   
-closeModalButtons.forEach(button => {
+  closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
       const modal = button.closest('.modal')
       closeModal(modal)
     })
   })
   
-function openModal(modal) {
+  function openModal(modal) {
     if (modal == null) return
     modal.classList.add('active')
     overlay.classList.add('active')
@@ -44,29 +88,6 @@ function openModal(modal) {
     modal.classList.remove('active')
     overlay.classList.remove('active')
   }
-
-  function showBooks() {
-    myLibrary.forEach(book => {
-        console.table(book);
-        const card = document.createElement('div');
-        const cardList = document.createElement('ul');
-        const title = document.createElement('li');
-        const auther = document.createElement('li');
-        const pages = document.createElement('li');
-        const read = document.createElement('li');
-        card.classList.add('book');
-        listOfBooks.append(card);
-        card.append(cardList);
-        cardList.append(title);
-        cardList.append(auther);
-        cardList.append(pages);
-        cardList.append(read);
-        title.innerText=`${book.title}`;
-        auther.innerText=`${book.auther}`;
-        pages.innerText=`${book.pages}`;
-        read.innerText=`${book.read == true ? "Read" : "Not read"}`
-    });
-}
   
   function book(title, auther, pages, read) {
       this.title = title
@@ -76,28 +97,50 @@ function openModal(modal) {
   }
   
   book.prototype.info = function () {
-      return `${input.title} by ${this.auther}, ${this.pages}, ${this.read}`
+      console.log(`${title.value} by ${book.auther}, ${this.pages}, ${this.read}`)
   }
 
-    function addBookToLibrary() {
+  function addBookToLibrary() {
         event.preventDefault();
-        const title = document.querySelector("#title");
-        const auther = document.querySelector("#auther");
-        const pages = document.querySelector("#pages");
+        const title = document.querySelector("#title").value;
+        const auther = document.querySelector("#auther").value;
+        const pages = document.querySelector("#pages").value;
         const readYes = document.querySelector("#readYes");
         const readNo = document.querySelector("#readNo");
-        const modals = document.querySelectorAll('.modal.active')
-        console.log(title.value)
-        console.log(auther.value)
-        console.log(pages.value)
-        if (readYes.checked == true) {
-            console.log("book is read")
-        }
-        if (readNo.checked == true) {
-            console.log("book is unread")
-        }
-        if (readYes == false && readNo == false) {console.log("no value given")}
+        const modals = document.querySelectorAll('.modal.active');
+        const card = document.createElement('div');
+        const cardList = document.createElement('ul');
+        const liTitle = document.createElement('li');
+        const liAuther = document.createElement('li');
+        const liPages = document.createElement('li');
+        const liRead = document.createElement('li');
+        const read = function() {
+          if (readYes.checked == true) {
+            return true
+          }
+          if (readNo.checked == true) {
+            return false
+          }
+        }        
+        const newBook = new book(title, auther, pages, read())
+        card.classList.add('book');
+        listOfBooks.append(card);
+        card.append(cardList);        
+        cardList.append(liTitle);
+        cardList.append(liAuther);
+        cardList.append(liPages);
+        cardList.append(liRead);
         console.log("book added")
+        liTitle.innerText=`${title}`;
+        liAuther.innerText=`${auther}`;
+        liPages.innerText=`${pages}`;
+        liRead.innerText=`${read() == true ? "Read" : "Not read"}`
+        myLibrary.push(newBook)
+        console.log("book added")
+        console.log(newBook.title)
+        console.log(newBook.auther)
+        console.log(newBook.pages)
+        console.log(newBook.read)
         modals.forEach(modal => {
             closeModal(modal)
           })
