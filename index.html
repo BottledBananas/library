@@ -33,13 +33,16 @@
 							<input type="number" id="pages" name="pages" />
 						</li>
 						<li>
-							<label for="read">Did you read it?</label>
-							<input type="checkbox" id="read" name="read" />
+							<fieldset>
+								<legend>Did you read it?</legend>
+								<label for="readYes">Yes</label>
+								<input type="radio" id="readYes" name="read" />
+								<label for="readNo">No</label>
+								<input type="radio" id="readNo" name="read" checked />
+							</fieldset>
 						</li>
 					</ul>
-					<button type="button" id="btnAddBookToLibrary">
-						Add book to library
-					</button>
+					<button id="btnAddBookToLibrary">Add book to library</button>
 				</form>
 			</div>
 		</div>
