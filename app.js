@@ -6,12 +6,6 @@ const btnAddBook = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
 const btnAddBookToLibrary = document.querySelector('#btnAddBookToLibrary')
-const card = document.createElement('div');
-const cardList = document.createElement('ul');
-const liTitle = document.createElement('li');
-const liAuther = document.createElement('li');
-const liPages = document.createElement('li');
-const liRead = document.createElement('li');
 let myLibrary = [GameOfThrones, It, Bible, It];
 
 btnAddBookToLibrary.addEventListener('click', addBookToLibrary);
@@ -37,23 +31,6 @@ function showBooks() {
     liPages.innerText=`${book.pages}`;
     liRead.innerText=`${book.read == true ? "Read" : "Not read"}`;
   })
-}
-
-const bookConstructor = function() {
-  const card = document.createElement('div');
-const cardList = document.createElement('ul');
-const liTitle = document.createElement('li');
-const liAuther = document.createElement('li');
-const liPages = document.createElement('li');
-const liRead = document.createElement('li');
-  card.classList.add('book');
-  listOfBooks.append(card);
-  card.append(cardList);        
-  cardList.append(liTitle);
-  cardList.append(liAuther);
-  cardList.append(liPages);
-  cardList.append(liRead);
-  console.log("book added")
 }
 
     btnAddBook.forEach(button => {
@@ -114,6 +91,7 @@ const liRead = document.createElement('li');
         const liAuther = document.createElement('li');
         const liPages = document.createElement('li');
         const liRead = document.createElement('li');
+        const btnRemove = document.createElement('button');
         const read = function() {
           if (readYes.checked == true) {
             return true
@@ -130,11 +108,14 @@ const liRead = document.createElement('li');
         cardList.append(liAuther);
         cardList.append(liPages);
         cardList.append(liRead);
+        cardList.append(btnRemove);
         console.log("book added")
         liTitle.innerText=`${title}`;
         liAuther.innerText=`${auther}`;
         liPages.innerText=`${pages}`;
         liRead.innerText=`${read() == true ? "Read" : "Not read"}`
+        btnRemove.setAttribute("class", "btnRemove");
+        btnRemove.innerText="Remove"
         myLibrary.push(newBook)
         console.log("book added")
         console.log(newBook.title)
@@ -144,6 +125,17 @@ const liRead = document.createElement('li');
         modals.forEach(modal => {
             closeModal(modal)
           })
+          btnRemove.addEventListener("click", () => {
+            card.remove();
+            cardList.remove();
+            liTitle.remove();
+            liAuther.remove();
+            liPages.remove();
+            liRead.remove();
+            btnRemove.remove();
+            console.log("book removed")
+          });
+          
     }
 
   console.log('works')
